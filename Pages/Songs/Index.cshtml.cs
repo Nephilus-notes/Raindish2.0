@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Raindish.Data;
 using Raindish.Models;
 
@@ -12,11 +13,13 @@ namespace Raindish.Pages.Songs
 {
     public class IndexModel : PageModel
     {
-        private readonly Raindish.Data.SongContext _context;
+        private readonly SongContext _context;
+        private readonly IConfiguration Configuration;
 
-        public IndexModel(Raindish.Data.SongContext context)
+        public IndexModel(SongContext context, IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
 
         public string TitleSort { get; set; }
@@ -28,30 +31,38 @@ namespace Raindish.Pages.Songs
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public IList<Song> Songs { get;set; } = default!;
+        public PaginatedList<Song> Songs { get; set; }
 
-        public async Task OnGetAsync( string sortOrder)
+        public async Task OnGetAsync( string sortOrder, string searchString,
+            string currentFilter, int? pageIndex)
         {
-            // using System;
+            CurrentSort = sortOrder;
             TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            //DateSort = sortOrder == "Date" ? "date_desc" : "Date";
             KeySignatureSort = sortOrder == "Key" ? "key_desc" : "Key";
-            // FinishedSort =
+            if (searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            CurrentFilter = searchString;
 
             IQueryable<Song> songsIQ = from s in _context.Songs
                                        select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                songsIQ = songsIQ.Where(s => s.Title.ToUpper().Contains(searchString.ToUpper())
+                        || s.OldNames.ToUpper().Contains(searchString.ToUpper()));
+            }
 
             switch (sortOrder)
             {
                 case "title_desc":
                     songsIQ = songsIQ.OrderByDescending(s => s.Title);
                     break;
-                //case "Date":
-                //    songsIQ = songsIQ.OrderBy(s => s.WrittenOn);
-                //    break;
-                //case "date_desc":
-                //    songsIQ = songsIQ.OrderByDescending(s => s.WrittenOn);
-                //    break;
                 case "Key":
                     songsIQ = songsIQ.OrderBy(s => s.KeySignature);
                     break;
@@ -64,8 +75,10 @@ namespace Raindish.Pages.Songs
 
             }
 
-                Songs = await _context.Songs
-                .Include(s => s.User).ToListAsync();
+            var pageSize = Configuration.GetValue("PageSize", 4);
+            Songs = await PaginatedList<Song>.CreateAsync(
+                songsIQ.AsNoTracking().Include(s => s.User).Include(s => s.SongGenres),
+                pageIndex ?? 1, pageSize);
 
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace Raindish.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Raindish.Models
 {
     public class Song
     {
@@ -8,6 +10,7 @@
         public string? KeySignature { get; set; }
         public Boolean ProductionRecording { get; set; }
         public Boolean Finished { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? WrittenOn { get; set; }
         public string? TabsLyricsURL { get; set; }
         public string? AudioFileURL { get; set; }

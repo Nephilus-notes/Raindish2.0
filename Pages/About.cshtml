@@ -1,0 +1,34 @@
+﻿@page
+@model Raindish.Pages.AboutModel
+@{
+    ViewData["Title"] = "Song Progress Statistics";
+}
+
+<h2>Song Progress Statistics</h2>
+
+<table>
+    <tr>
+        <th>
+            Finished
+        </th>
+        <th>
+            Songs
+        </th>
+    </tr>
+    @{
+        System.Diagnostics.Debug.WriteLine("asdf");
+    }
+    @if (Model.Songs != null) 
+    foreach (var item in Model.Songs)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem=> item.Finished)
+            </td>
+            <td>
+                @item.SongCount
+            </td>
+        </tr>
+    }
+
+</table>
