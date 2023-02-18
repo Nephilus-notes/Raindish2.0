@@ -1,0 +1,133 @@
+﻿@page "{id:int}"
+@model Raindish.Pages.Songs.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Song</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.OldNames)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.OldNames)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.KeySignature)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.KeySignature)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.ProductionRecording)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.ProductionRecording)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.Finished)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.Finished)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.WrittenOn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.WrittenOn)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.TabsLyricsURL)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.TabsLyricsURL)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.AudioFileURL)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.AudioFileURL)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Song.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Song.User.Id)
+        </dd>
+
+        <dd class="col-sm-4">
+            <table class="table">
+                <tr>
+                    <th>Contributors</th>
+                </tr>
+                @foreach (var item in Model.Song.SongContributors)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contributor.ArtistName)
+                        </td>
+@*                        <td>
+                            @Html.DisplayFor(modelItem => item.Grade)
+                        </td>*@
+                    </tr>
+                }
+            </table>
+        </dd>
+        <dd class="col-sm-2">
+            <table class="table">
+                <tr>
+                    <th>Genre/Styles</th>
+                </tr>
+                @foreach (var item in Model.Song.SongGenres)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre.Name)
+                        </td>
+@*                        <td>
+                            @Html.DisplayFor(modelItem => item.Grade)
+                        </td>*@
+                    </tr>
+                }
+            </table>
+        </dd>
+        @if (Model.Song.SongPedals.Count > 0) 
+        {
+        <dd class="col-sm-6">
+            <table class="table">
+                <tr>
+                    <th>Pedals</th>
+                    <th>Description</th>
+                </tr>
+                @foreach (var item in Model.Song.SongPedals)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pedal.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pedal.Description)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+        }
+       
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Song?.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
