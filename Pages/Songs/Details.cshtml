@@ -89,11 +89,11 @@
                 <tr>
                     <th>Genre/Styles</th>
                 </tr>
-                @foreach (var item in Model.Song.SongGenres)
+                @foreach (var item in Model.Song.Genres)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Genre.Name)
+                            @Html.DisplayFor(modelItem => item.Name)
                         </td>
 @*                        <td>
                             @Html.DisplayFor(modelItem => item.Grade)

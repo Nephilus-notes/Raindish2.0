@@ -29,8 +29,7 @@ namespace Raindish.Pages.Songs
             }
 
             var song = await _context.Songs
-                .Include(s => s.SongGenres)
-                .ThenInclude(e => e.Genre)
+                .Include(s => s.Genres)
                 .Include(s => s.SongPedals)
                 .ThenInclude(p => p.Pedal)
                 .Include(s => s.SongContributors)

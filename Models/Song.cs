@@ -17,7 +17,7 @@ namespace Raindish.Models
         public int? UserId { get; set; }
 
         public ICollection<SongContributor> SongContributors { get; set; }
-        public ICollection<SongGenre> SongGenres { get; set; }
+        public ICollection<Genre> Genres { get; set; }
         public ICollection<SongPedal>? SongPedals { get; set; }
         public User User { get; set; }
     }

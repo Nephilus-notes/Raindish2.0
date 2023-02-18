@@ -1,4 +1,7 @@
 ﻿using Raindish.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Raindish.Data
 {
@@ -10,75 +13,196 @@ namespace Raindish.Data
             {
                 return;
             }
-            var songs = new Song[]
+
+            var charles = new User
             {
-                new Song{Title="Trouble You Can Borrow",ProductionRecording=true,Finished=true},
-                new Song{Title="Everything But Desire",ProductionRecording=true,Finished=true},
-                new Song{Title="Better Than Sin",ProductionRecording=true,Finished=true},
-                new Song{Title="Sinnerman",ProductionRecording=false,Finished=false}
+                Name = "Charles",
+                Email = "Cmhmcc@gmail.com",
+                Password = "Sup",
+                PhoneNumber = "3145205612"
             };
 
-            context.Songs.AddRange(songs);
-            //context.SaveChanges();
+            var shawn = new User
+            {
+                Name = "Shawn",
+                Email = "",
+                Password = "Sup",
+                PhoneNumber = "3145205612"
+            };
+
+            var users = new User[]
+            {
+                charles,
+                shawn
+            };
+
+            context.Users.AddRange(users);
+
+            var altMetal = new Genre
+            {
+                Name = "Alt Metal"
+            };
+            var alt = new Genre
+            {
+                Name = "Alt"
+            };
+            var folk = new Genre
+            {
+                Name = "Folk"
+            };
+            var blues = new Genre
+            {
+                Name = "Blues"
+            };
+            var closer = new Genre
+            {
+                Name = "Closer"
+            };
+
+            var atmospheric = new Genre
+            {
+                Name = "Atmospheric"
+            };
+
 
             var genres = new Genre[]
             {
-                new Genre{Name="Alt Metal"},
-                new Genre{Name="Alt"},
-                new Genre{Name="Folk"},
-                new Genre{Name="Blues"},
-                new Genre{Name="Closer"},
-                new Genre{Name="Atmospheric"}
+                altMetal,
+                alt,
+                folk, 
+                blues,
+                closer,
+                atmospheric,
             };
 
             context.Genres.AddRange(genres);
-            // context.SaveChanges();
 
-            var pedals = new Pedal[]
+            var nephilus = new Contributor
             {
-                new Pedal{Name="Looper"},
-                new Pedal{Name="Distortion"}
+                ArtistName = "Nephilus",
             };
 
-            context.Pedals.AddRange(pedals);
-            // context.SaveChanges();
+            var po = new Contributor
+            {
+                ArtistName = "Po Mia"
+            };
 
             var conttributors = new Contributor[]
             {
-                new Contributor{ArtistName="Nephilus" }
+                nephilus, 
+                po
             };
 
             context.Contributors.AddRange(conttributors);
-            //context.SaveChanges();
+
+            var looper = new Pedal
+            {
+                Name = "Looper",
+                Description = "VSN Twin Looper with variable speed, reverse, two channels, and channel switching"
+            };
+
+            var distortion = new Pedal
+            {
+                Name = "Distortion",
+            };
+
+            var pedals = new Pedal[]
+            {
+                looper,
+                distortion
+            };
+
+            context.Pedals.AddRange(pedals);
+
+            System.Diagnostics.Debug.WriteLine(blues);
+            System.Diagnostics.Debug.WriteLine(closer);
+
+            var trouble = new Song
+            {
+                Title = "Trouble You Can Borrow",
+                OldNames = "For Today",
+                KeySignature = "A Minor",
+                ProductionRecording = true,
+                Finished = true,
+                WrittenOn = DateTime.Parse("2021-05-21"),
+                TabsLyricsURL = "",
+                AudioFileURL = "",
+                User = charles,
+                Genres = new List<Genre> { blues }
+            };
+
+            var everything = new Song
+            {
+                Title = "Everything But Desire",
+                OldNames = "",
+                KeySignature = "E Power",
+                ProductionRecording = true,
+                Finished = true,
+                WrittenOn = DateTime.Parse("2022-05-21"),
+                TabsLyricsURL = "",
+                AudioFileURL = "",
+                User = charles,
+                Genres = new List<Genre> { altMetal }
+            };
+
+            var bts = new Song
+            {
+                Title = "These Words",
+                OldNames = "Better Than Sin",
+                KeySignature = "A Minor",
+                ProductionRecording = true,
+                Finished = true,
+                WrittenOn = DateTime.Parse("2020-05-21"),
+                TabsLyricsURL = "",
+                AudioFileURL = "",
+                User = shawn,
+                Genres = new List<Genre> { folk }
+            };
+
+            var sinnerman = new Song
+            {
+                Title = "Sinnerman",
+                OldNames = "",
+                KeySignature = "D Minor",
+                ProductionRecording = false,
+                Finished = true,
+                WrittenOn = DateTime.Parse("2021-05-21"),
+                TabsLyricsURL = "https://docs.google.com/document/d/1cT3pxNDKaxqP2u72cDRGyUCvYb7jq2u_Ed0yElG0VIs/edit",
+                AudioFileURL = "",
+                User = charles,
+                Genres = new List<Genre> { alt }
+            };
+
+            var songs = new Song[]
+            {
+                trouble,
+                everything,
+                bts,
+                sinnerman
+            };
+
 
             var songContributors = new SongContributor[]
             {
-                new SongContributor{SongID=1,ContributorID=1}
+                new SongContributor{Song=trouble,Contributor=nephilus},
+                new SongContributor{Song = everything, Contributor = nephilus},
+                new SongContributor{Song=everything, Contributor=po},
+                new SongContributor{Song=bts,Contributor=nephilus},
+                new SongContributor{Song=sinnerman,Contributor=po},
             };
 
             context.SongContributors.AddRange(songContributors);
-            //.SaveChanges();
 
-            var songGenres = new SongGenre[]
-            {
-                new SongGenre {SongID=1,GenreID=4},
-            };
-
-            context.SongGenres.AddRange(songGenres);
-            // context.SaveChanges();
 
             var songPedals = new SongPedal[]
             {
-                new SongPedal{SongID=2, PedalID=1}
+                new SongPedal{Song=everything, Pedal=looper},
+                new SongPedal{Song=everything, Pedal=distortion}
             };
 
             context.SongPedals.AddRange(songPedals);
 
-            var users = new User[]
-            {
-                new User{Name="Charles"}
-            };
-            context.Users.AddRange(users);
+            context.Songs.AddRange(songs);
             context.SaveChanges();
         }
     }
