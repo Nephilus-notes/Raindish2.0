@@ -77,9 +77,14 @@ namespace Raindish.Pages.Songs
 
             var pageSize = Configuration.GetValue("PageSize", 4);
             Songs = await PaginatedList<Song>.CreateAsync(
-                songsIQ.AsNoTracking().Include(s => s.User).Include(s => s.Genres),
+                songsIQ.AsNoTracking()
+                .Include(s => s.User)
+                .Include(s => s.Genres)
+                .Include(s => s.SongContributors)
+                .ThenInclude(c => c.Contributor)
+                .Include(s => s.SongPedals)
+                .ThenInclude(p => p.Pedal),
                 pageIndex ?? 1, pageSize);
-
         }
     }
 }

@@ -57,6 +57,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Songs[0].Genres)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Songs[0].SongContributors)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Songs[0].SongPedals)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -86,6 +92,30 @@
             <td>
                 @Html.DisplayFor(modelItem => item.User.Id)
             </td>
+            <td>
+                    @foreach (var genre in item.Genres)
+                    {
+                        <div>
+                        @genre.Name
+                        </div>
+                    }
+            </td>
+                <td>
+                    @foreach (var info in item.SongContributors)
+                    {
+                        <div>
+                            @info.Contributor.ArtistName
+                        </div>
+                    }
+                </td>
+                <td>
+                    @foreach (var info in item.SongPedals)
+                    {
+                        <div>
+                            @info.Pedal.Name
+                        </div>
+                    }
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

@@ -114,8 +114,8 @@ namespace Raindish.Data
 
             context.Pedals.AddRange(pedals);
 
-            System.Diagnostics.Debug.WriteLine(blues);
-            System.Diagnostics.Debug.WriteLine(closer);
+            //System.Diagnostics.Debug.WriteLine(blues);
+            //System.Diagnostics.Debug.WriteLine(closer);
 
             var trouble = new Song
             {
@@ -128,7 +128,7 @@ namespace Raindish.Data
                 TabsLyricsURL = "",
                 AudioFileURL = "",
                 User = charles,
-                Genres = new List<Genre> { blues }
+                Genres = new List<Genre> { blues, closer }
             };
 
             var everything = new Song
@@ -142,7 +142,7 @@ namespace Raindish.Data
                 TabsLyricsURL = "",
                 AudioFileURL = "",
                 User = charles,
-                Genres = new List<Genre> { altMetal }
+                Genres = new List<Genre> { altMetal, closer }
             };
 
             var bts = new Song
