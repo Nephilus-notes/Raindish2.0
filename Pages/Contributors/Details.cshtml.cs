@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Raindish.Data;
 using Raindish.Models;
 
-namespace Raindish._01.Pages.Genres
+namespace Raindish._01.Pages.Contributors
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace Raindish._01.Pages.Genres
             _context = context;
         }
 
-      public Genre Genre { get; set; }
+      public Contributor Contributor { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Genres == null)
+            if (id == null || _context.Contributors == null)
             {
                 return NotFound();
             }
 
-            var genre = await _context.Genres.FirstOrDefaultAsync(m => m.ID == id);
-            if (genre == null)
+            var contributor = await _context.Contributors.FirstOrDefaultAsync(m => m.ID == id);
+            if (contributor == null)
             {
                 return NotFound();
             }
             else 
             {
-                Genre = genre;
+                Contributor = contributor;
             }
             return Page();
         }

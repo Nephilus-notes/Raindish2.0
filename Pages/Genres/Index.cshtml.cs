@@ -9,7 +9,7 @@ using Raindish.Data;
 using Raindish.Models;
 using Raindish.Models.ViewModels;
 
-namespace Raindish._01.Pages.Genres
+namespace Raindish.Pages.Genres
 {
     public class IndexModel : PageModel
     {

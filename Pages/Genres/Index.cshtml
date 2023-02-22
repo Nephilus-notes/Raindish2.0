@@ -1,5 +1,5 @@
 ﻿@page "{id:int?}"
-@model Raindish._01.Pages.Genres.IndexModel
+@model Raindish.Pages.Genres.IndexModel
 
 @{
     ViewData["Title"] = "Genres";
@@ -40,7 +40,6 @@
                 <td>
                 <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
@@ -75,6 +74,9 @@
                 </td>
                 <td class="col-sm-3">@item.Title</td>
                 <td class="col-sm-1">@item.KeySignature</td>
+                <td>
+                    <a asp-page="./Details" asp-page="/Songs/Index@item.ID">Details</a> |
+                </td>
             </tr>
         }
     </table>

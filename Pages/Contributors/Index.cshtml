@@ -1,0 +1,97 @@
+﻿@page
+@model Raindish.Pages.Contributors.IndexModel
+
+@{
+    ViewData["Title"] = "Artist";
+}
+
+<h1>Artists</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ContributorData.Contributors) 
+{
+            string seletedRow = "";
+            if (item.ID == Model.ContributorID)
+            {
+                seletedRow = "table-success";
+            }
+            <tr class="@seletedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtistName)
+            </td>
+               <td>
+                    @foreach (var songContributor in item.SongContributors)
+                    {
+                        @songContributor.Song.Title
+
+                        <br />
+                    }
+                    </td>
+
+            <td>
+                <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@if (Model.ContributorData.SongContributors != null)
+{
+    <h3>Songs by Selected Artist</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+                <th class="col-sm-2">Title</th>
+                <th class="col-sm-2">
+                Key Signature
+            </th>
+                <th class="col-sm-2">
+                    Genres
+                </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.ContributorData.SongContributors)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.SongID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td class="col-sm-1">
+                    <a asp-page="./Index" asp-route-SongID="@item.Song.ID">Select</a>
+                </td>
+                <td class="col-sm-3">@item.Song.Title</td>
+                <td class="col-sm-2">@item.Song.KeySignature</td>
+                <td>
+@*                        <hr class="mt-0 mb-0">
+*@                        @foreach (var genre in item.Song.Genres)
+                    {
+                            @genre.Name
+                                   <br />
+                    }
+                </td>
+            </tr>
+        }
+            </tbody>
+    </table>
+}
