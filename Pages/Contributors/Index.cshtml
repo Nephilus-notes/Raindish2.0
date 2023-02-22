@@ -57,7 +57,6 @@
     <table class="table">
         <thead>
         <tr>
-            <th></th>
                 <th class="col-sm-2">Title</th>
                 <th class="col-sm-2">
                 Key Signature
@@ -77,9 +76,6 @@
                 selectedRow = "table-success";
             }
             <tr class="@selectedRow">
-                <td class="col-sm-1">
-                    <a asp-page="./Index" asp-route-SongID="@item.Song.ID">Select</a>
-                </td>
                 <td class="col-sm-3">@item.Song.Title</td>
                 <td class="col-sm-2">@item.Song.KeySignature</td>
                 <td>
