@@ -62,12 +62,65 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Song.AudioFileURL)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.User)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Song.User.Id)
+
+        <dd class="col-sm-4">
+            <table class="table">
+                <tr>
+                    <th>Contributors</th>
+                </tr>
+                @foreach (var item in Model.Song.SongContributors)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contributor.ArtistName)
+                        </td>
+                        @*                        <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                    </td>*@
+                    </tr>
+                }
+            </table>
         </dd>
+        <dd class="col-sm-2">
+            <table class="table">
+                <tr>
+                    <th>Genre/Styles</th>
+                </tr>
+                @foreach (var item in Model.Song.Genres)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        @*                        <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                    </td>*@
+                    </tr>
+                }
+            </table>
+        </dd>
+        @if (Model.Song.SongPedals.Count > 0)
+        {
+            <dd class="col-sm-6">
+                <table class="table">
+                    <tr>
+                        <th>Pedals</th>
+                        <th>Description</th>
+                    </tr>
+                    @foreach (var item in Model.Song.SongPedals)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pedal.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pedal.Description)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </dd>
+        }
     </dl>
     
     <form method="post">

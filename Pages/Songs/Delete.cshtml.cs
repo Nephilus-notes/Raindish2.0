@@ -34,6 +34,11 @@ namespace Raindish.Pages.Songs
             }
 
             Song = await _context.Songs
+                .Include(s => s.Genres)
+                .Include(s => s.SongPedals)
+                .ThenInclude(p => p.Pedal)
+                .Include(s => s.SongContributors)
+                .ThenInclude(c => c.Contributor)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -54,11 +59,13 @@ namespace Raindish.Pages.Songs
             {
                 return NotFound();
             }
-            var song = await _context.Songs.FindAsync(id);
+            Song song = await _context.Songs
+                .Include(s => s.Genres)
+                .SingleAsync(s => s.ID == id);
 
             if (song == null)
             {
-                return NotFound();
+                return RedirectToPage("./Index");
             }
 
             try
