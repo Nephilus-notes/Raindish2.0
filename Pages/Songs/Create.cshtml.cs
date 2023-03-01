@@ -51,6 +51,8 @@ namespace Raindish.Pages.Songs
                 _context.Genres.Load();
             }
 
+            newSong.Genres = new List<Genre>();
+
             foreach (var genre in selectedGenres)
             {
                 var foundGenre = await _context.Genres.FindAsync(int.Parse(genre));
@@ -58,7 +60,9 @@ namespace Raindish.Pages.Songs
                 {
                     System.Diagnostics.Debug.WriteLine(foundGenre);
                     System.Diagnostics.Debug.WriteLine(foundGenre.Name);
-                    System.Diagnostics.Debug.WriteLine(foundGenre.Songs);
+
+                    System.Diagnostics.Debug.WriteLine(newSong);
+                    System.Diagnostics.Debug.WriteLine(newSong.Genres);
 
                     newSong.Genres.Add(foundGenre);
                 }

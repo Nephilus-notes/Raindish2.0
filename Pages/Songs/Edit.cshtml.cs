@@ -61,9 +61,9 @@ namespace Raindish.Pages.Songs
             {
                 return NotFound();
             }
-            System.Diagnostics.Debug.Write("Hitting the conditional \n");
-            System.Diagnostics.Debug.WriteLine(songToUpdate.Title);
-            System.Diagnostics.Debug.WriteLine(selectedGenres.Length);
+            //System.Diagnostics.Debug.Write("Hitting the conditional \n");
+            //System.Diagnostics.Debug.WriteLine(songToUpdate.Title);
+            //System.Diagnostics.Debug.WriteLine(selectedGenres.Length);
 
             if (songToUpdate != null) 
             {
@@ -74,9 +74,7 @@ namespace Raindish.Pages.Songs
                     s => s.Finished, s => s.WrittenOn, s => s.TabsLyricsURL, s => s.AudioFileURL);
 
                 UpdateSongGenres(selectedGenres, songToUpdate);
-                System.Diagnostics.Debug.WriteLine("Trying to save for Diagnostics");
 
-                System.Diagnostics.Debug.WriteLine((selectedGenres, songToUpdate));
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
