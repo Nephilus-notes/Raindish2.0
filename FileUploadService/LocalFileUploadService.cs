@@ -1,18 +1,36 @@
-﻿namespace Raindish.FileUploadService
+﻿using Raindish._01.FileUploadService;
+
+namespace Raindish.FileUploadService
 {
     public class LocalFileUploadService: IFileUploadService
     {
-        private readonly IWebHostEnvironment environment;
-        public LocalFileUploadService(IWebHostEnvironment environment)
+        public async Task<bool> UploadFileAsync(IFormFile file)
         {
-            this.environment = environment;
-        }
-        public async Task<string> UploadFileAsync(IFormFile file)
-        {
-            var filePath = Path.Combine(environment.ContentRootPath, @"wwwroot\images", file.FileName);
-            using var fileStream = new FileStream(filePath, FileMode.Create);
-            await file.CopyToAsync(fileStream);
-            return filePath;
+            string path = "";
+            try
+            {
+                if (file.Length> 0 )
+                {
+                    path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles"));
+                    if (!Directory.Exists(path) )
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(path, file.FileName), FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("File Copy Failed", ex);
+            }
         }
     }
 }

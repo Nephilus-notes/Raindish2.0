@@ -1,7 +1,7 @@
-﻿namespace Raindish.FileUploadService
+﻿namespace Raindish._01.FileUploadService
 {
     public interface IFileUploadService
     {
-        Task<string> UploadFileAsync(IFormFile file);
+        Task<bool> UploadFileAsync(IFormFile file);
     }
 }

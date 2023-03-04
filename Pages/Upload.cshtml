@@ -16,10 +16,9 @@
         </form>
     </div>
     <div>
-            @if (!string.IsNullOrWhiteSpace(Model.FilePath))
-            {
-            <img src="@Model.FilePath" alt="Alertnate Text" />
-            }
+            <div class="alert" style="margin-top:20px">
+                @ViewBag.Message
+            </div>
     </div>
     </div>
 }
