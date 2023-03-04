@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Raindish.Data;
 
@@ -11,9 +12,11 @@ using Raindish.Data;
 namespace Raindish._01.Migrations
 {
     [DbContext(typeof(SongContext))]
-    partial class SongContextModelSnapshot : ModelSnapshot
+    [Migration("20230302175030_stuff")]
+    partial class stuff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

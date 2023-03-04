@@ -11,13 +11,13 @@ using Raindish.Models;
 
 namespace Raindish.Pages.Songs
 {
-    public class CreateModel : SongGenresPageModel
+    public class CreateModel : CreateSongPageModel
     {
         private readonly SongContext _context;
-        private readonly ILogger<SongGenresPageModel> _logger;
+        private readonly ILogger<CreateSongPageModel> _logger;
 
         public CreateModel(SongContext context,
-                            ILogger<SongGenresPageModel> logger)
+                            ILogger<CreateSongPageModel> logger)
         {
             _context = context;
             _logger = logger;
@@ -31,7 +31,7 @@ namespace Raindish.Pages.Songs
             // Provides an empty collect for the foreach loop
             // foreach (var genre in Model.AssignedGenreDataList)
             // in the Create Razor page.
-            PopulateAssignedGenresData(_context, song);
+            PopulateAssignedItems(_context, song);
             return Page();
         }
 
@@ -58,11 +58,11 @@ namespace Raindish.Pages.Songs
                 var foundGenre = await _context.Genres.FindAsync(int.Parse(genre));
                 if (foundGenre != null)
                 {
-                    System.Diagnostics.Debug.WriteLine(foundGenre);
-                    System.Diagnostics.Debug.WriteLine(foundGenre.Name);
+                    //System.Diagnostics.Debug.WriteLine(foundGenre);
+                    //System.Diagnostics.Debug.WriteLine(foundGenre.Name);
 
-                    System.Diagnostics.Debug.WriteLine(newSong);
-                    System.Diagnostics.Debug.WriteLine(newSong.Genres);
+                    //System.Diagnostics.Debug.WriteLine(newSong);
+                    //System.Diagnostics.Debug.WriteLine(newSong.Genres);
 
                     newSong.Genres.Add(foundGenre);
                 }
@@ -91,7 +91,7 @@ namespace Raindish.Pages.Songs
             {
                 _logger.LogError(ex.Message);
             }
-            PopulateAssignedGenresData(_context, newSong);
+            PopulateAssignedItems(_context, newSong);
             return Page();
         }
     }

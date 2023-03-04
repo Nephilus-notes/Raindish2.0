@@ -80,6 +80,61 @@
                     </table>
                 </div>
              </div>
+            @*             <div class="form-group">
+                <div class="table">
+                    <table>
+                        <thead>Contributors</thead>
+                        <tr>
+                            @{
+                                int conCnt = 0;
+
+                                foreach (var contributor in Model.AssignedContributorDataList)
+                                {
+                                    if (conCnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input type="checkbox"
+                                            name="selectedContributors"
+                                            value="@contributor.ID"
+                                            @(Html.Raw(contributor.Assigned ? "checked=\"checked\"" : "")) />
+                                            @contributor.ArtistName
+                                            @:</td>
+                                }
+                                @:</tr>
+                            }
+                    </table>
+                </div>
+             </div>
+                 <div class="form-group">
+                <div class="table">
+                    <table>
+                        <thead>Pedals</thead>
+                        <tr>
+                            @{
+                                int pedCnt = 0;
+
+                                foreach (var pedal in Model.AssignedPedalDataList)
+                                {
+                                    if (pedCnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input type="checkbox"
+                                            name="selectedPedals"
+                                            value="@pedal.ID"
+                                            @(Html.Raw(pedal.Assigned ? "checked=\"checked\"" : "")) />
+                                            @pedal.Name
+                                            @pedal.Description
+                                            @:</td>
+                                }
+                                @:</tr>
+                            }
+                    </table>
+                </div>
+             </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

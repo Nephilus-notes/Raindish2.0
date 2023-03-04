@@ -2,10 +2,14 @@
 using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore; 
 using Microsoft.Extensions.DependencyInjection;
 using Raindish.Data;
+using Raindish.FileUploadService;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<IFileUploadService, LocalFileUploadService>();
 builder.Services.AddDbContext<SongContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SongContext") ?? throw new InvalidOperationException("Connection string 'SongContext' not found.")));
 
